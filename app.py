@@ -1,3 +1,37 @@
+import streamlit as st
+import pandas as pd
+
+st.set_page_config(page_title="Project 37", layout="wide")
+
+st.markdown(
+    """
+    <h1 style='text-align: center; color: #2E86C1;'>🚀 Project 37</h1>
+    <h4 style='text-align: center;'>AI-Powered Early Risk Detection</h4>
+    """,
+    unsafe_allow_html=True
+)
+
+st.markdown("### 📝 Enter Patient Details")
+
+col1, col2 = st.columns(2)
+
+with col1:
+    age = st.number_input("Age")
+    gestation = st.number_input("Gestation Week")
+    bp = st.number_input("Blood Pressure")
+
+with col2:
+    temp = st.number_input("Temperature (°C)")
+    hb = st.number_input("Hemoglobin")
+    wbc = st.number_input("WBC Count")
+
+st.markdown("### 🤒 Symptoms")
+fever = st.checkbox("Fever")
+pain = st.checkbox("Abdominal Pain")
+bleeding = st.checkbox("Bleeding")
+fatigue = st.checkbox("Fatigue")
+
+# BUTTON
 if st.button("🔍 Analyze Risk"):
 
     risk = 0
@@ -95,3 +129,4 @@ if st.button("🔍 Analyze Risk"):
 
     Recommended Action: {action}
     """)
+    
