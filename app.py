@@ -1,73 +1,62 @@
-import streamlit as st
-import pandas as pd
-
-st.set_page_config(page_title="Project 37", layout="wide")
-st.markdown(
-    """
-    <h1 style='text-align: center; color: #2E86C1;'>🚀 Project 37</h1>
-    <h4 style='text-align: center;'>AI-Powered Early Risk Detection</h4>
-    """,
-    unsafe_allow_html=True
-)
-st.markdown("### 📝 Enter Patient Details")
-
-col1, col2 = st.columns(2)
-
-with col1:
-    age = st.number_input("Age")
-    gestation = st.number_input("Gestation Week")
-    bp = st.number_input("Blood Pressure")
-
-with col2:
-    temp = st.number_input("Temperature (°C)")
-    hb = st.number_input("Hemoglobin")
-    wbc = st.number_input("WBC Count")
-
-st.markdown("### 🤒 Symptoms")
-fever = st.checkbox("Fever")
-pain = st.checkbox("Abdominal Pain")
-bleeding = st.checkbox("Bleeding")
-fatigue = st.checkbox("Fatigue")
-
 if st.button("🔍 Analyze Risk"):
 
- risk = 0
-drivers = []
+    risk = 0
+    drivers = []
 
-# Temperature
-if temp > 38:
-    risk += 0.2
-    drivers.append("High Temperature")
-elif temp > 37.5:
-    risk += 0.1
+    # Age
+    if age < 18 or age > 35:
+        risk += 0.1
+        drivers.append("Risky Maternal Age")
 
-# Blood Pressure
-if bp < 90:
-    risk += 0.2
-    drivers.append("Low Blood Pressure")
-elif bp < 100:
-    risk += 0.1
+    # Temperature
+    if temp > 38:
+        risk += 0.2
+        drivers.append("High Temperature")
+    elif temp > 37.5:
+        risk += 0.1
 
-# WBC
-if wbc > 11000:
-    risk += 0.2
-    drivers.append("High WBC (Infection)")
-elif wbc > 10000:
-    risk += 0.1
+    # Blood Pressure
+    if bp < 90:
+        risk += 0.2
+        drivers.append("Low Blood Pressure")
+    elif bp < 100:
+        risk += 0.1
 
-# Hemoglobin
-if hemoglobin < 10:
-    risk += 0.2
-    drivers.append("Low Hemoglobin (Anemia)")
-elif hemoglobin < 11:
-    risk += 0.1
+    # WBC
+    if wbc > 11000:
+        risk += 0.2
+        drivers.append("High WBC (Infection)")
+    elif wbc > 10000:
+        risk += 0.1
 
-# Gestation
-if gestation_week < 34:
-    risk += 0.2
-    drivers.append("Early Gestation")
-elif gestation_week < 37:
-    risk += 0.1
+    # Hemoglobin
+    if hb < 10:
+        risk += 0.2
+        drivers.append("Low Hemoglobin (Anemia)")
+    elif hb < 11:
+        risk += 0.1
+
+    # Gestation
+    if gestation < 34:
+        risk += 0.2
+        drivers.append("Early Gestation")
+    elif gestation < 37:
+        risk += 0.1
+
+    # Symptoms
+    if fever:
+        risk += 0.1
+        drivers.append("Fever")
+    if pain:
+        risk += 0.1
+        drivers.append("Abdominal Pain")
+    if bleeding:
+        risk += 0.2
+        drivers.append("Bleeding")
+    if fatigue:
+        risk += 0.05
+
+    # RESULTS
     st.markdown("## 📊 Results")
 
     if risk > 0.6:
