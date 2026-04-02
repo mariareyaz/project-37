@@ -31,19 +31,37 @@ fatigue = st.checkbox("Fatigue")
 
 if st.button("🔍 Analyze Risk"):
 
-    risk = 0
-    drivers = []
+  risk = 0
 
-    if temp > 37.5 and wbc > 11000:
-        risk += 0.4
-        drivers.append("Infection")
+# Temperature
+if temp > 38:
+    risk += 20
+elif temp > 37.5:
+    risk += 10
 
-    if hb < 10:
-        risk += 0.3
-        drivers.append("Low Hemoglobin")
+# Blood Pressure
+if bp < 90:
+    risk += 20
+elif bp < 100:
+    risk += 10
 
-    if bp > 135:
-        risk += 0.2
+# WBC
+if wbc > 11000:
+    risk += 20
+elif wbc > 10000:
+    risk += 10
+
+# Hemoglobin
+if hemoglobin < 10:
+    risk += 20
+elif hemoglobin < 11:
+    risk += 10
+
+# Gestation
+if gestation_week < 34:
+    risk += 20
+elif gestation_week < 37:
+    risk += 10      risk += 0.2
         drivers.append("High Blood Pressure")
 
     st.markdown("## 📊 Results")
